@@ -1,0 +1,13 @@
+#signupFormButton{
+    background: #fe5e00; 
+    margin-top: 5px;
+    width: 100%;
+}
+
+#signupHeader{
+    color:#fe5e00; 
+}
+
+.form-group{
+    margin-top: 5px;
+}
