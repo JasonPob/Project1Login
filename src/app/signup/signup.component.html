@@ -21,10 +21,11 @@
                         placeholder="First name" 
                         ngModel
                         required
-                        name="firstname">
-                        <div class="valid-feedback">
-
-                        </div>
+                        name="firstname"                                            
+                        >
+                        <!-- <span 
+            *ngIf="!signupForm.get('firstname').valid && signupForm.get('firstname').touched "
+            class="help-block">Please enter your first name!</span> -->
                     </div>
                     <div class="form-group col-md-6 mb-3">
                         <label>Last name</label>
@@ -70,11 +71,11 @@
                             <input 
                             type="email" 
                             class="form-control" 
-                            id="email" 
+                            id="signupEmail" 
                             placeholder="Email" 
                             ngModel
                             required
-                            name="email">
+                            name="signupEmail">
                             <div class="invalid-feedback">
 
                             </div>
