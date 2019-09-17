@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -7,11 +9,34 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
+  signupForm: FormGroup;
+  
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.fetchPosts();
+    this.signupForm = new FormGroup({
+      'username': new FormControl(null, Validators.required),
+      'email': new FormControl(null, [Validators.required, Validators.email],this.forbiddenEmails),
+      
+    });
+  }
+
+  onSubmit() {
+    console.log("Return object created by Angular is below as FormGroup");
+    console.log( this.signupForm);
+  }
+
+  forbiddenEmails(control: FormControl): Promise<any> | Observable<any> {
+    const promise = new Promise<any>((resolve, reject) => {
+      setTimeout(() => {
+        if (control.value === 'test@test.com') {
+        resolve({'emailIsForbidden': true});
+        } else{
+          resolve(null);
+        }
+      }, 1500);
+    });
+    return promise;
   }
 
   onCreatePost(postData: { title: string; content: string }) {

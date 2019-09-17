@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-sm-4"></div>
         <div class="col-sm-4">
-            <form #postForm="ngForm" (ngSubmit)="onCreatePost(postForm.value)">
+            <form #postForm="ngForm" (ngSubmit)="onCreatePost(postForm.value);onSubmit()">
                 
                     <div class="form-group col-md-6 mb-3">
                         <label>First name</label>
