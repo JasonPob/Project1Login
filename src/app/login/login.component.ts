@@ -1,16 +1,54 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.fetchPosts();
+    this.loginForm = new FormGroup({
+      'loginUsername': new FormControl(null, Validators.required),
+      'loginPassword': new FormControl(null, Validators.required),
+    });
+  }
+
+
+
+  forbiddenEmails(control: FormControl): Promise<any> | Observable<any> {
+    const promise = new Promise<any>((resolve, reject) => {
+      setTimeout(() => {
+        if (control.value === 'test@test.com') {
+        resolve({'emailIsForbidden': true});
+        } else{
+          resolve(null);
+        }
+      }, 1500);
+    });
+    return promise;
+  }
+
+  onSubmit() {
+    console.log("Return object created by Angular is below as FormGroup");
+    console.log( this.loginForm);
+  }
+
+
+  onFetchPosts() {
+    // Send Http request
+    this.fetchPosts();
+  }
+
+  onClearPosts() {
+    // Send Http request
   }
 
   onCreatePost(postData: { title: string; content: string }) {
@@ -23,15 +61,6 @@ export class LoginComponent implements OnInit {
       .subscribe(responseData => {
         console.log(responseData);
       });
-  }
-
-  onFetchPosts() {
-    // Send Http request
-    this.fetchPosts();
-  }
-
-  onClearPosts() {
-    // Send Http request
   }
 
   private fetchPosts(){
