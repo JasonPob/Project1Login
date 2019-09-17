@@ -14,7 +14,14 @@
                 <div class="col-sm-4 form-group ">
                     <label for="name">Username</label>
                     <br>
-                    <input type="email" class="form-control" id="email" placeholder="TeamWeikun@Gmail.com">
+                    <input 
+                    type="email" 
+                    class="form-control" 
+                    id="email" 
+                    placeholder="TeamWeikun@Gmail.com"
+                    required
+                    
+                    name="username">
                 </div>
                 <div class="col-sm-4"></div>
             </div>
@@ -24,8 +31,14 @@
                 <div class="col-sm-4 form-group">
                     <label for="amount">Password</label>
                     
-                    <input type="password" class="form-control" id="password"
-                        placeholder="Password">
+                    <input 
+                    type="password" 
+                    class="form-control" 
+                    id="loginPassword"
+                    placeholder="Password"
+                    required
+                    
+                    name="password">
                 </div>
                 <div class="col-sm-4"></div>
             </div>
@@ -49,7 +62,12 @@
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
-                    <button id="signupButton" class="btn btn-danger" type="submit" (click)="onLogin()">Sign up</button>
+                    <button 
+                    id="signupButton" 
+                    class="btn btn-danger" 
+                    type="submit" 
+                    >Sign up
+                </button>
                     <a class="dropdown-item" href="#">Forgot password?</a>    
                 </div>
             </div>

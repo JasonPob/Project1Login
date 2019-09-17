@@ -1,99 +1,140 @@
-<div class="row">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+<div class="container">
+    <div class="row">
+        <br><br><br><br><br><br><br>
         <div>
             <h1 id="signupHeader" class="text-center font-weight-bold text-danger">Sign Up</h1>
         </div>
         <br>
-
     </div>
-<div class="row">
-    <div class="col-sm-4"></div>
-    <div class="col-sm-4">
-        <form class="needs-validation" novalidate>
-            <div class="form-row">
-                <div class="col-md-6 mb-3">
-                    <label for="validationCustom01">First name</label>
-                    <input type="text" class="form-control" id="validationCustom01" placeholder="First name"
-                         required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="validationCustom02">Last name</label>
-                    <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" 
-                        required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                </div>
-            </div>
+    
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <form class="form-control" #postForm="ngForm" (ngSubmit)="onCreatePost(postForm.value)">
+                
+                    <div class="form-group col-md-6 mb-3">
+                        <label>First name</label>
+                        <input 
+                        type="text" 
+                        class="form-control" 
+                        id="firstname" 
+                        placeholder="First name" 
+                        ngModel
+                        required
+                        name="firstname">
+                        <div class="valid-feedback">
 
-
-            <div class="form-row">
-                <div class="col-md-6 mb-3">
-                    <label for="validationCustomUsername">Username</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                        
-                        </div>
-                        <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username"
-                            aria-describedby="inputGroupPrepend" required>
-                        <div class="invalid-feedback">
-                            Please choose a username.
                         </div>
                     </div>
-                </div>
+                    <div class="form-group col-md-6 mb-3">
+                        <label>Last name</label>
+                        <input 
+                        type="text" 
+                        class="form-control" 
+                        id="lastname" 
+                        placeholder="Last name" 
+                        ngModel
+                        required
+                        name="lastname">
+                        <div class="valid-feedback">
+
+                        </div>
+                    </div>
+                
+
 
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
-                        <label for="validationCustom03">City</label>
-                        <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
-                        <div class="invalid-feedback">
-                            Please provide a valid city.
+                        <label>Username</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+
+                            </div>
+                            <input 
+                            type="text" 
+                            class="form-control" 
+                            id="username" 
+                            placeholder="Username"
+                            ngModel 
+                            required
+                            name="username">
+                            <div class="invalid-feedback">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label >City</label>
+                            <input 
+                            type="text" 
+                            class="form-control" 
+                            id="city" 
+                            placeholder="City" 
+                            ngModel
+                            required
+                            name="city">
+                            <div class="invalid-feedback">
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-        
-            <div class="form-row">
-                <div class="col-md-6 mb-3">
-                    <label for="validationCustom04">Password</label>
-                    <input type="text" class="form-control" id="validationCustom04" placeholder="Password" required>
-                    <div class="invalid-feedback">
-                        Please provide a valid password.
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="validationCustom05">Confirm Password</label>
-                    <input type="text" class="form-control" id="validationCustom05" placeholder="Confirm Password" required>
-                    <div class="invalid-feedback">
-                        Passwords do not match!
-                    </div>
-                </div>
-            </div>
 
 
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                    <label class="form-check-label" for="invalidCheck">
-                        Agree to terms and conditions
-                    </label>
-                    <div class="invalid-feedback">
-                        You must agree before submitting.
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label>Password</label>
+                        <input 
+                        type="text" 
+                        class="form-control" 
+                        id="signupPassword" 
+                        placeholder="Password" 
+                        ngModel
+                        required
+                        name="signupPassword">
+                        <div class="invalid-feedback">
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label >Confirm Password</label>
+                        <input 
+                        type="text" 
+                        class="form-control" 
+                        id="confirmPassword" 
+                        placeholder="Confirm Password"
+                        ngModel 
+                        required
+                        name="confirmPassword"
+                        >
+                        <div class="invalid-feedback">
+
+                        </div>
                     </div>
                 </div>
-            </div>
-            <button id="signupFormButton" class="btn btn-primary" type="submit">Submit form</button>
-        </form>
+
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                        <label class="form-check-label" for="invalidCheck">
+                            Remember Me
+                        </label>
+                        <div class="invalid-feedback">
+
+                        </div>
+                    </div>
+                </div>
+                <button 
+                id="signupFormButton" 
+                class="btn btn-primary" 
+                type="submit"
+                [disabled]="!postForm.valid"
+                >Submit form</button>
+            </form>
+        </div>
+        <div class="col-sm-4"></div>
     </div>
-    <div class="col-sm-4"></div>
 </div>
