@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -24,10 +24,10 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(form:NgForm) {
     console.log("Return object created by Angular is below as FormGroup");
-    console.log( this.signupForm);
-    this.signupForm.reset();
+    console.log(form.value);
+    form.reset();
     
   }
 
