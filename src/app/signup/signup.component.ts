@@ -27,6 +27,8 @@ export class SignupComponent implements OnInit {
   onSubmit(form:NgForm) {
     console.log("Return object created by Angular is below as FormGroup");
     console.log(form.value);
+
+    
     form.reset();
     
   }
