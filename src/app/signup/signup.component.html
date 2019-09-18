@@ -76,10 +76,11 @@
                             placeholder="Email" 
                             ngModel
                             required
+                            email
                             name="signupEmail">
-                            <div class="invalid-feedback">
-
-                            </div>
+                            <!-- <div *ngIf="email.errors.required">
+                                Proper email is required
+                              </div> -->
                         </div>
                     </div>
                 </div>

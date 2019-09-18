@@ -27,6 +27,8 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     console.log("Return object created by Angular is below as FormGroup");
     console.log( this.signupForm);
+    this.signupForm.reset();
+    
   }
 
   forbiddenEmails(control: FormControl): Promise<any> | Observable<any> {
