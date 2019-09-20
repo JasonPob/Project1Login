@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-sm-4"></div>
         <div class="col-sm-4">
-            <form  #postForm="ngForm" (ngSubmit)="onCreatePost(postForm.value);onSubmit(postForm)">
+            <form  [formGroup]="signupForm" (ngSubmit)="onCreatePost(this.signupForm.value);onSubmit()" (submit)="submit()">
                 
                     <div class="form-group col-md-6 mb-3">
                         <label>First name</label>
@@ -19,14 +19,12 @@
                         class="form-control" 
                         id="firstname" 
                         placeholder="First name" 
-                        ngModel
-                        required
-                        name="firstname" 
-                                                                
+                        formControlName="firstName" 
+                        [ngClass]="{ 'is-invalid': submitted && formFieldsGetter.firstName.errors }"                                   
                         >
-                        <span 
-            *ngIf="!signupForm.get('firstname').valid && signupForm.get('firstname').touched  "
-            class="help-block">Please enter your first name!</span>
+                        <div *ngIf="submitted && formFieldsGetter.firstName.errors" class="invalid-feedback">
+                            <div *ngIf="formFieldsGetter.firstName.errors.required">First Name is required</div>
+                        </div>
                     </div>
                     <div class="form-group col-md-6 mb-3">
                         <label>Last name</label>
@@ -35,12 +33,10 @@
                         class="form-control" 
                         id="lastname" 
                         placeholder="Last name" 
-                        ngModel
-                        required
-                        name="lastname">
-                        
-                        <div class="valid-feedback">
-
+                        [ngClass]="{ 'is-invalid': submitted && formFieldsGetter.lastName.errors }"
+                        formControlName="lastName">      
+                        <div *ngIf="submitted && formFieldsGetter.lastName.errors" class="invalid-feedback">
+                            <div *ngIf="formFieldsGetter.lastName.errors.required">Last Name is required</div>
                         </div>
                     </div>
                 
@@ -58,30 +54,32 @@
                             class="form-control" 
                             id="username" 
                             placeholder="Username"
-                            ngModel 
-                            required
-                            name="username">
-                            <div class="invalid-feedback">
-
+                            formControlName="username"
+                            [ngClass]="{ 'is-invalid': submitted && formFieldsGetter.username.errors }">
+                            <div *ngIf="submitted && formFieldsGetter.username.errors" class="invalid-feedback">
+                                <div *ngIf="formFieldsGetter.username.errors.required">Username is required</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label >Email</label>
+                            <label for="signupEmail" [ngClass]="signupForm.controls['signupEmail'].invalid ? '' : ''">Email Address</label>
                             <input 
                             type="email" 
                             class="form-control" 
                             id="signupEmail" 
                             placeholder="Email" 
-                            ngModel
-                            required
                             email
-                            name="signupEmail">
-                            <!-- <div *ngIf="email.errors.required">
-                                Proper email is required
-                              </div> -->
+                            formControlName="signupEmail"
+                            [ngClass]="signupForm.controls['signupEmail'].invalid ? 'is-invalid' : ''">
+                            <label class="text-danger" *ngIf="signupForm.controls['signupEmail'].hasError('required')">
+                                Email is Required!
+                              </label>
+                              <label class="text-danger" *ngIf="signupForm.controls['signupEmail'].hasError('signupEmail')">
+                                Enter a valid email address!
+                              </label>
+                            
                         </div>
                     </div>
                 </div>
@@ -95,12 +93,26 @@
                         class="form-control" 
                         id="signupPassword" 
                         placeholder="Password" 
-                        ngModel
-                        required
-                        name="signupPassword">
-                        <div class="invalid-feedback">
-
-                        </div>
+                        formControlName="signupPassword"
+                        [ngClass]="{ 'is-invalid': submitted && formFieldsGetter.signupPassword.errors }">
+                        <label class="col" [ngClass]="signupForm.controls['signupPassword'].hasError('required') || signupForm.controls['signupPassword'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
+                            <i class="material-icons">{{ signupForm.controls['signupPassword'].hasError('required') ||
+                                signupForm.controls['signupPassword'].hasError('hasNumber') ? 'cancel' :
+                              'check_circle' }}</i>
+                            Must contain at least 1 number!
+                          </label>
+                          <label class="col" [ngClass]="signupForm.controls['signupPassword'].hasError('required') || signupForm.controls['signupPassword'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
+                            <i class="material-icons">{{ signupForm.controls['signupPassword'].hasError('required') ||
+                                signupForm.controls['signupPassword'].hasError('hasCapitalCase') ? 'cancel' :
+                              'check_circle' }}</i>
+                            Must contain at least 1 in Capital Case!
+                          </label>
+                          <label class="col" [ngClass]="signupForm.controls['signupPassword'].hasError('required') || signupForm.controls['signupPassword'].hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'">
+                            <i class="material-icons">{{ signupForm.controls['signupPassword'].hasError('required') ||
+                                signupForm.controls['signupPassword'].hasError('hasSpecialCharacters') ? 'cancel' :
+                              'check_circle' }}</i>
+                            Must contain at least 1 Special Character!
+                          </label>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label >Confirm Password</label>
@@ -109,14 +121,17 @@
                         class="form-control" 
                         id="confirmPassword" 
                         placeholder="Confirm Password"
-                        ngModel 
-                        required
-                        name="confirmPassword"
-                        >
-                        <div class="invalid-feedback">
-
-                        </div>
-                    </div>
+                        formControlName="confirmPassword"
+                        [ngClass]="signupForm.controls['confirmPassword'].invalid ? 'is-invalid' : ''">
+                        
+            <label class="text-danger" *ngIf="signupForm.controls['confirmPassword'].hasError('required')">
+              Password is Required!
+            </label>
+            <label class="text-danger" *ngIf="signupForm.controls['confirmPassword'].hasError('NoPassswordMatch')">
+              Password do not match
+            </label>
+          </div>
+          
                 </div>
 
 
@@ -132,11 +147,11 @@
                     </div>
                 </div>
                 <button 
-                id="signupFormButton" 
-                class="btn btn-primary" 
+                
+                class="btn btn-danger" 
                 type="submit"
-                [disabled]="!postForm.valid"
-                >Submit form</button>
+                [disabled]="signupForm.invalid"
+                >Register</button>
             </form>
         </div>
         <div class="col-sm-4"></div>

@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import {AlertService, AuthenticationService } from '../_services';
+import { first } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-login',
@@ -10,42 +14,59 @@ import { Observable } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  //added vars
+  loading = false;
+  submitted = false;
+  returnUrl: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private formBuilder: FormBuilder,
+    private alertService: AlertService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+      ) { }
 
-  ngOnInit() {
-    this.fetchPosts();
-    this.loginForm = new FormGroup({
-      'loginUsername': new FormControl(null, Validators.required),
-      'loginPassword': new FormControl(null, Validators.required),
-    });
-  }
+      ngOnInit() {
+        this.loginForm = this.formBuilder.group({
+            username: ['', Validators.required],
+            password: ['', [Validators.required, Validators.minLength(6)]],
+        });
 
+        // reset login status
+        this.authenticationService.logout();
+// get return url from route parameters or default to '/'
+this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    }
 
-
-  forbiddenEmails(control: FormControl): Promise<any> | Observable<any> {
-    const promise = new Promise<any>((resolve, reject) => {
-      setTimeout(() => {
-        if (control.value === 'test@test.com') {
-        resolve({'emailIsForbidden': true});
-        } else{
-          resolve(null);
-        }
-      }, 1500);
-    });
-    return promise;
-  }
+    // Getter for easy access to form fields
+    get formFieldsGetter() { return this.loginForm.controls; }
 
   onSubmit() {
+    this.submitted = true;
+console.log("onSubmit executing...")
+        // stop here if form is invalid
+        if (this.loginForm.invalid) {
+          console.log("Submission failed!")
+            return;
+        }
+
+        this.loading = true;
+        this.authenticationService.login(this.formFieldsGetter.username.value, this.formFieldsGetter.password.value)
+            .pipe(first())
+            .subscribe(
+                data => {
+                  this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
     console.log("Return object created by Angular is below as FormGroup");
     console.log( this.loginForm);
   }
 
 
-  onFetchPosts() {
-    // Send Http request
-    this.fetchPosts();
-  }
 
   onClearPosts() {
     // Send Http request
@@ -59,14 +80,10 @@ export class LoginComponent implements OnInit {
         postData
       )
       .subscribe(responseData => {
+        console.log("The following is response data")
         console.log(responseData);
       });
   }
 
-  private fetchPosts(){
-    this.http.get('https://post-request.firebaseio.com/posts.json')
-    .subscribe(posts => {
-      console.log(posts);
-    });    
-  }
+  
 }
