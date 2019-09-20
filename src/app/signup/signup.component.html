@@ -131,10 +131,7 @@
               Password do not match
             </label>
           </div>
-          <div class="form-group">
-            <button [disabled]="signupForm.invalid" type="submit" class="btn btn-primary btn-block font-weight-bold">Sign
-              up</button>
-                    </div>
+          
                 </div>
 
 
@@ -150,10 +147,10 @@
                     </div>
                 </div>
                 <button 
-                
-                class="btn btn-primary" 
+                id="signupFormButton"
+                class="btn btn-danger" 
                 type="submit"
-                
+                [disabled]="signupForm.invalid"
                 >Register</button>
             </form>
         </div>
