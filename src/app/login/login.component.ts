@@ -60,6 +60,7 @@ console.log("onSubmit executing...")
                 },
                 error => {
                     this.alertService.error(error);
+                    console.log("Unable to login!")
                     this.loading = false;
                 });
     console.log("Return object created by Angular is below as FormGroup");

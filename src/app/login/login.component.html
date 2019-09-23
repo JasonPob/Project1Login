@@ -62,18 +62,19 @@
             </div>
             <br>
 
-            <div class="row">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-4">
-                    <button 
-                    id="signupButton" 
-                    class="btn btn-danger" 
-                    type="submit" 
-                    >Sign up
-                </button>
-                    <a class="dropdown-item" href="#">Forgot password?</a>    
-                </div>
-            </div>
         </form>
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <button 
+                        id="signupButton" 
+                        class="btn btn-danger" 
+                        type="submit" 
+                        (click)="router.navigate(['/signup']);"
+                        >Sign up
+                    </button>
+                        <a class="dropdown-item" href="#">Forgot password?</a>    
+                    </div>
+                </div>
     </div>
 </div>

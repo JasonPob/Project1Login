@@ -1,8 +1,10 @@
 // import { Component } from '@angular/core';
 // import { NgForm } from '@angular/forms';
 // import { Observable } from 'rxjs';
+// import { AuthenticationService } from '../_services';
+// import { AuthResponseData } from './auth.service';
 
-// import { AuthService, AuthResponseData } from './auth.service';
+// // import { AuthService, AuthResponseData } from './auth.service';
 
 // @Component({
 //   selector: 'app-auth',
@@ -13,7 +15,7 @@
 //   isLoading = false;
 //   error: string = null;
 
-//   constructor(private authService: AuthService) {}
+//   constructor(private authService: AuthenticationService) {}
 
 //   onSwitchMode() {
 //     this.isLoginMode = !this.isLoginMode;
@@ -23,7 +25,7 @@
 //     if (!form.valid) {
 //       return;
 //     }
-//     const email = form.value.email;
+//     const username = form.value.username;
 //     const password = form.value.password;
 
 //     let authObs: Observable<AuthResponseData>;
@@ -31,9 +33,9 @@
 //     this.isLoading = true;
 
 //     if (this.isLoginMode) {
-//       authObs = this.authService.login(email, password);
+//       authObs = this.authService.login(username, password);
 //     } else {
-//       authObs = this.authService.signup(email, password);
+//       authObs = this.authService.signup(username, password);
 //     }
 
 //     authObs.subscribe(
