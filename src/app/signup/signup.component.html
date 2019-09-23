@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-sm-4"></div>
         <div class="col-sm-4">
-            <form  [formGroup]="signupForm" (ngSubmit)="onCreatePost(this.signupForm.value);onSubmit()" (submit)="submit()">
+            <form  [formGroup]="signupForm" (ngSubmit)="onCreatePost(this.signupForm.value);onSubmit()">
                 
                     <div class="form-group col-md-6 mb-3">
                         <label>First name</label>
@@ -151,9 +151,12 @@
                 class="btn btn-danger" 
                 type="submit"
                 [disabled]="signupForm.invalid"
+                (click)="router.navigate(['/login']);"
                 >Register</button>
             </form>
         </div>
         <div class="col-sm-4"></div>
     </div>
 </div>
+
+<!-- (click)="router.navigate(['/login']);" -->
